@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand portif" style="margin-left: 1%;">Loan Approval</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <div class="container wholepage">
+        <div class="title">Loan Approval using Decision Tree</div>
+        <div class="allfields">
+            <div class="input-group mb-3 name">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">No. of Dependents</span>
+                </div>
+                <input type="number" class="form-control theinputs" id="no_of_dependents" placeholder="Dependents">
+            </div>
+            
+
+            <div class="input-group mb-3 name">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Education</span>
+                </div>
+                <select id="education" class="form-control form-select">
+                    <option value="1">Graduate</option>
+                    <option value="0">Non Graduate</option>
+                </select>
+            </div>
+            
+            <div class="input-group mb-3 name">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Self-Employed</span>
+                </div>
+                <select id="employment" class="form-control form-select">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3 name">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Annual Income</span>
+                </div>
+                <input type="number" class="form-control theinputs" id="income" placeholder="Income">
+            </div>
+
+            <div class="input-group mb-3 name">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Loan Amount</span>
+                </div>
+                <input type="number" class="form-control theinputs" id="loan" placeholder="Amount">
+            </div>
+
+            <div class="input-group mb-3 name">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Loan Term</span>
+                </div>
+                <input type="number" class="form-control theinputs" id="term" placeholder="Term">
+            </div>
+            
+            <div class="input-group mb-3 name">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Cibil Score</span>
+                </div>
+                <input type="number" class="form-control theinputs" id="cibil" placeholder="Cibil Score" max="900" min="300">
+            </div>
+            
+        </div>
+        <div class="allfields">
+            <button type="button" onclick="submitandGet()" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="allfields" id="result">
+            
+        </div>
+    </div>
+
+    <script>
+        function submitandGet(){
+            var dep = document.getElementById('no_of_dependents').value
+            var edu = document.getElementById('education').value
+            var emp = document.getElementById('employment').value
+            var income = document.getElementById('income').value
+            var loan = document.getElementById('loan').value
+            var term = document.getElementById('term').value
+            var cibil = document.getElementById('cibil').value
+
+            var urlstr = "http://127.0.0.1:5000/predict?depen="+dep+"&education="+edu+"&employment="+emp+"&income="+income+"&loan="+loan+"&term="+term+"&cibil="+cibil;
+
+            fetch(urlstr).then((val)=>{return val.text()}).then((val)=>{
+                if(val=='approved'){
+                    document.getElementById('result').innerText = 'Your Loan request has been approved'
+                    document.getElementById('result').classList.add('result-pos')
+                }
+                else if(val=='rejected'){
+                    document.getElementById('result').innerText = 'Your Loan request has been rejected'
+                    document.getElementById('result').classList.add('result-neg')
+                }
+                var dep = document.getElementById('no_of_dependents').value = undefined
+                var edu = document.getElementById('education').value = undefined
+                var emp = document.getElementById('employment').value = undefined
+                var income = document.getElementById('income').value = undefined
+                var loan = document.getElementById('loan').value = undefined
+                var term = document.getElementById('term').value = undefined
+                var cibil = document.getElementById('cibil').value = undefined
+            })
+        }
+    </script>
+
+</body>
+</html>

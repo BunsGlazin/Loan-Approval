@@ -1,0 +1,44 @@
+.portif{
+    display: flex;
+}
+
+.wholepage{
+    padding-top: 1%;
+    background-color:darkgrey;
+    border-radius:1%;
+    height: 50vh;
+    margin-top: 3%;
+    width: 100%;
+}
+
+.name {
+    height: 5%;
+    width: 40% !important;
+    margin-top: 1%;
+    margin-left: 2%;
+}
+
+.title{
+    font-size: 200%;
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+
+.allfields{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.result-pos{
+    font-size: 200%;
+    color: green;
+}
+
+.result-neg{
+    font-size: 200%;
+    color: red;
+}
